@@ -11,7 +11,7 @@
 }
 </style>
 <meta charset="utf-8">
-<title>Event Form</title>
+<title>Player Form</title>
 </head>
 <body>
 	<h1>Registration form</h1>

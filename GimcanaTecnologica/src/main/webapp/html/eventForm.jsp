@@ -14,7 +14,7 @@
 <title>Player Form</title>
 </head>
 <body>
-	<h1>Form to register players into events</h1>
+	<h1>Form to manage events</h1>
 	<c:if test="${message != null}">
 		<h2 style="color:red"><c:out value="${message}" /></h2>
 	</c:if>

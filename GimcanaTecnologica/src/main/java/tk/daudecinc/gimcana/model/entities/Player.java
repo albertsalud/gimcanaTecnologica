@@ -32,9 +32,11 @@ public class Player {
 	@NotNull
 	private String name;
 	
+	@NotNull
 	private String secretWord;
 	
 	@ManyToOne
 	@JoinColumn(name = "event_id")
+	@NotNull
 	private Event event;
 }

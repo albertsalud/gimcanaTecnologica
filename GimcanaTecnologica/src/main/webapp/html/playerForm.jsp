@@ -11,35 +11,29 @@
 }
 </style>
 <meta charset="utf-8">
-<title>Player Form</title>
+<title>Event Form</title>
 </head>
 <body>
-	<h1>Form to register players into events</h1>
+	<h1>Registration form</h1>
 	<c:if test="${message != null}">
 		<h2 style="color:red"><c:out value="${message}" /></h2>
 	</c:if>
-	<form:form method="post" modelAttribute="event" action="/admin/eventos/guardar">
+	<form:form method="post" modelAttribute="player" action="/eventos/registro">
 		<form:hidden path="id"/>
+		<form:hidden path="secretWord" />
 		<table>
 			<tr>
-				<td>Event name:</td>
+				<td>Event:</td>
+				<td>
+					<form:select path="event" items="${events}" itemLabel="name" itemValue="id">
+					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<td>Player name:</td>
 				<td>
 					<form:input path="name" />
 					<form:errors path="name" cssClass="error" />
-				</td>
-			</tr>
-			<tr>
-				<td>Event date (dd/MM/yyyy):</td>
-				<td>
-					<form:input path="initDate" />
-					<form:errors path="initDate" cssClass="error"/>
-				</td>
-			</tr>
-			<tr>
-				<td>Allow players registration:</td>
-				<td>
-					<form:checkbox path="allowPlayersRegistration" />
-					<form:errors path="allowPlayersRegistration" cssClass="error" />
 				</td>
 			</tr>
 			<tr>

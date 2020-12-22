@@ -20,7 +20,7 @@
 				<td>${currentEvent.name}</td>
 				<td>${currentEvent.initDate}</td>
 				<td>
-					<a href="./eventos/${currentEvent.id}">Edit</a>
+					<a href="/admin/eventos/${currentEvent.id}">Edit</a>
 				</td>
 			</tr>
 		</c:forEach>

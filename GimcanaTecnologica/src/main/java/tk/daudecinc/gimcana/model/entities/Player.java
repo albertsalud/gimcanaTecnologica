@@ -1,15 +1,15 @@
 package tk.daudecinc.gimcana.model.entities;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,20 +21,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Event {
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "event_id"})})
+public class Player {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@NotBlank(message = "Event name is mandatory")
+
+	@NotBlank(message = "Player name is mandatory")
 	@NotNull
 	private String name;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@NotNull(message = "Event date is mandatory")
-	private Date initDate;
+	private String secretWord;
 	
-	private boolean allowPlayersRegistration;
+	@ManyToOne
+	@JoinColumn(name = "event_id")
+	private Event event;
 }
-

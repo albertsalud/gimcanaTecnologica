@@ -1,5 +1,6 @@
 package tk.daudecinc.gimcana.model.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,8 @@ public class Location {
 	
 	@NotBlank
 	@NotNull
-	private String key;
+	@Column(unique = true)
+	private String code;
 	
 	@NotBlank
 	@NotNull
@@ -32,5 +34,7 @@ public class Location {
 	private String description;
 	
 	private int zone;
+	
+	private boolean available = true;
 
 }

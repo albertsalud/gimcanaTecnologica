@@ -5,25 +5,23 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Event List</title>
+<title>Location List</title>
 </head>
 <body>
-	<h1>Event list</h1>
+	<h1>Location list</h1>
 	<p>
-		<a href="/admin/eventos/nuevo">&gt; Add new event</a>
+		<a href="/admin/localizaciones/nueva">&gt; Add new location</a>
 	</p>
 	<table>
 		<tr>
-			<th>Event name</th>
-			<th>Event date</th>
+			<th>Location name</th>
 			<th></th>
 		</tr>
-		<c:forEach items="${listEvents}" var="currentEvent">
+		<c:forEach items="${locations}" var="currentLocation">
 			<tr>
-				<td>${currentEvent.name}</td>
-				<td>${currentEvent.initDate}</td>
+				<td>${currentLocation.name}</td>
 				<td>
-					<a href="/admin/eventos/${currentEvent.id}">Edit</a>
+					<a href="/admin/localizaciones/${currentLocation.id}">Edit</a>
 				</td>
 			</tr>
 		</c:forEach>

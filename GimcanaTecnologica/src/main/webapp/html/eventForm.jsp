@@ -18,6 +18,9 @@
 	<c:if test="${message != null}">
 		<h2 style="color:red"><c:out value="${message}" /></h2>
 	</c:if>
+	<p>
+		<a href="/admin/eventos">&lt; return to events list</a>
+	</p>
 	<form:form method="post" modelAttribute="event" action="/admin/eventos/guardar">
 		<form:hidden path="id"/>
 		<table>

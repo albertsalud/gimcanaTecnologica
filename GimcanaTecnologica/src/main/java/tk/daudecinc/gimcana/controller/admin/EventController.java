@@ -26,7 +26,11 @@ public class EventController {
 	
 	@GetMapping("/nuevo")
 	public String goToEventForm(Model model) {
-		model.addAttribute("event", new Event());
+		return goToEventForm(model, new Event());
+	}
+	
+	private String goToEventForm(Model model, Event event) {
+		model.addAttribute("event", event);
 		return "eventForm";
 	}
 	
@@ -38,15 +42,12 @@ public class EventController {
 			) {
 		
 		if(bindingResult.hasErrors()) {
-			System.out.println("The received event has errors!");
-			model.addAttribute("event", eventToSave);
-			return "eventForm";
+			return this.goToEventForm(model, eventToSave);
 		}
 		
-		System.out.println("Received event: " + eventToSave);
 		eventServices.saveEvent(eventToSave);
 		
-		return "index";
+		return this.listEvents(model);
 	}
 	
 	@GetMapping("/{eventId}")
@@ -62,9 +63,7 @@ public class EventController {
 			eventSearched = new Event();
 		}
 		
-		model.addAttribute("event", eventSearched);
-		
-		return listEvents(model);
+		return goToEventForm(model, eventSearched);
 	}
 	
 	@GetMapping(value = {"", "/ "})

@@ -18,7 +18,10 @@
 	<c:if test="${message != null}">
 		<h2 style="color:red"><c:out value="${message}" /></h2>
 	</c:if>
-	<form:form method="post" modelAttribute="event" action="/admin/localizaciones/guardar">
+	<p>
+		<a href="/admin/localizaciones">&lt; return to locations list</a>
+	</p>
+	<form:form method="post" modelAttribute="location" action="/admin/localizaciones/guardar">
 		<form:hidden path="id"/>
 		<table>
 			<tr>
@@ -29,17 +32,33 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Event date (dd/MM/yyyy):</td>
+				<td>Location code:</td>
 				<td>
-					<form:input path="initDate" />
-					<form:errors path="initDate" cssClass="error"/>
+					<form:input path="code" />
+					<form:errors path="code" cssClass="error"/>
 				</td>
 			</tr>
 			<tr>
-				<td>Allow players registration:</td>
+				<td>Description:</td>
 				<td>
-					<form:checkbox path="allowPlayersRegistration" />
-					<form:errors path="allowPlayersRegistration" cssClass="error" />
+					<form:textarea path="description" />
+					<form:errors path="description" cssClass="error" />
+				</td>
+			</tr>
+			<tr>
+				<td>Zone:</td>
+				<td>
+					<form:select path="zone">
+						<form:option value="1">1</form:option>
+						<form:option value="2">2</form:option>
+						<form:option value="3">3</form:option>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<td>Available:</td>
+				<td>
+					<form:checkbox path="available"/>
 				</td>
 			</tr>
 			<tr>

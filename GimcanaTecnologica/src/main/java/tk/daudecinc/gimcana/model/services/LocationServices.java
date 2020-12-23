@@ -13,17 +13,29 @@ public class LocationServices {
 	
 	@Autowired
 	private LocationDAO locationDao;
+	
+	private List<Location> allLocations;
+	
+	public LocationServices() {
+		allLocations = locationDao.findAll();
+	}
 
 	public List<Location> listLocations() {
-		return locationDao.findAll();
+		return allLocations;
 	}
 
 	public void saveLocation(Location location) {
 		locationDao.save(location);
+		
+		allLocations = locationDao.findAll();
 	}
 
 	public Location getLocation(Long locationId) {
 		return locationDao.findById(locationId).orElse(null);
+	}
+
+	public Location findByCode(String locationCode) {
+		return locationDao.findByCode(locationCode);
 	}
 
 }

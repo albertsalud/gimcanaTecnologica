@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -31,10 +33,13 @@ public class Event {
 	@NotNull
 	private String name;
 	
+	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@NotNull(message = "Event date is mandatory")
 	private Date initDate;
 	
 	private boolean allowPlayersRegistration;
+	
+	private boolean eventStarted;
 }
 

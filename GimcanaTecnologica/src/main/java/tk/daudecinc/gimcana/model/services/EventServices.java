@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 
 import tk.daudecinc.gimcana.model.dao.EventDAO;
 import tk.daudecinc.gimcana.model.entities.Event;
+import tk.daudecinc.gimcana.model.entities.Player;
 
 @Service
 public class EventServices {
 	
 	@Autowired
 	private EventDAO eventDao;
+	
+	@Autowired
+	private PlayerServices playerServices;
 
 	public void saveEvent(Event event) {
 		eventDao.save(event);
@@ -50,6 +54,21 @@ public class EventServices {
 					return e.isAllowPlayersRegistration();
 					})
 				.collect(Collectors.toList());
+	}
+
+	public List<Player> getEventPlayers(Event eventSearched) {
+		return playerServices.findByEvent(eventSearched);
+	}
+
+	public void setPlayerPresent(Long playerId, Boolean present) {
+		if(playerId == null || present == null) return;
+		
+		Player player = playerServices.findById(playerId);
+		
+		if(player != null) {
+			player.setPresent(present);
+			playerServices.savePlayer(player);
+		}
 	}
 	
 }

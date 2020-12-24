@@ -57,4 +57,6 @@ public class Player {
 	@JoinColumn(name = "player_id")
 	@OrderBy("assignedDate desc")
 	private List<CheckPoint> checkPoints = new ArrayList<>();
+	
+	private boolean present; 
 }

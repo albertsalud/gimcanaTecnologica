@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import tk.daudecinc.gimcana.model.entities.Event;
 import tk.daudecinc.gimcana.model.services.EventServices;
@@ -64,6 +65,27 @@ public class EventController {
 		}
 		
 		return goToEventForm(model, eventSearched);
+	}
+	
+	@GetMapping("/{eventId}/players")
+	public String getEventPlayersList(
+			@PathVariable(required = true) Long eventId,
+			@RequestParam(name="player", required = false) Long playerId,
+			@RequestParam(required = false) Boolean present,
+			Model model
+			) {
+		
+		Event eventSearched = eventServices.getEvent(eventId);
+		
+		if(eventSearched == null) {
+			model.addAttribute("message", "Requested event not exists!");
+			return this.listEvents(model);
+		}
+		
+		eventServices.setPlayerPresent(playerId, present);
+		
+		model.addAttribute("players", eventServices.getEventPlayers(eventSearched));
+		return "eventPlayersList";
 	}
 	
 	@GetMapping(value = {"", "/ "})

@@ -37,6 +37,13 @@
 				</td>
 			</tr>
 			<tr>
+				<td>Player password:</td>
+				<td>
+					<form:input path="password" />
+					<form:errors path="password" cssClass="error" />
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2">
 					<input type="submit" value="Save" />
 				</td>

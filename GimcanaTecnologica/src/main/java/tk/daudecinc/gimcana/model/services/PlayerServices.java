@@ -36,7 +36,7 @@ public class PlayerServices {
 
 	public void addCheckPoint(Player player) {
 		CheckPoint newCheckPoint = checkPointAssigner.assignCheckPoint(player);
-		player.getCheckPoints().add(newCheckPoint);
+		player.getCheckPoints().add(0, newCheckPoint);	// new checkpoint always added at position 0.
 		
 		this.savePlayer(player);
 	}

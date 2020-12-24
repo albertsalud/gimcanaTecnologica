@@ -1,5 +1,7 @@
 package tk.daudecinc.gimcana.controller;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,7 @@ public class PlayerController {
 		return "checkPointForm";
 	}
 	
-	@PostMapping("/checkPlayerStatus")
+	@PostMapping("/checkPoint")
 	public String checkPlayerStatus(
 			@Valid @ModelAttribute CheckPointFormDTO checkPointFormDTO,
 			BindingResult bindingResult,
@@ -80,22 +82,57 @@ public class PlayerController {
 	}
 
 	private String manageLocationCode(Model model, Player player, String locationCode) throws LocationNotFoundException {
-		if(player.getCheckPoints().isEmpty()) {
+		if(player.getCheckPoints().isEmpty()) {	// When event starts
 			playerServices.addCheckPoint(player);
-			model.addAttribute("player", player);
 		
-		} else if (locationCode != null) {
-			Location requestedLocation = locationServices.findByCode(locationCode);
-			
-			if(requestedLocation == null) throw new LocationNotFoundException();
-			
-			if(requestedLocation.equals(player.getCheckPoints().get(0))) {
-
-			}
-		
+		} else if (locationCode != null && !"".equals(locationCode)) {	// When player checks a place
+			checkValidLocation(model, player, locationCode);
 		}
 		
+		// else: player is checking its own status
+		model.addAttribute("player", player);
+		manageCharactersFound(model, player);
+		manageDescriptionMessage(model, player);
+		
 		return "playerStatus";
+		
+	}
+
+	private void manageDescriptionMessage(Model model, Player player) {
+		String descriptionMessage;
+		if(player.getCheckPoints().get(0).getCheckedDate() == null) {	// Show riddle description
+			descriptionMessage = player.getCheckPoints().get(0).getLocation().getDescription();
+		} else {	// End game message
+			descriptionMessage = "The game is over.";
+		}
+		
+		model.addAttribute("descriptionMessage", descriptionMessage);
+		
+	}
+
+	private void manageCharactersFound(Model model, Player player) {
+		int charactersFound = player.getCheckPoints().get(0).getCheckedDate() == null ? player.getCheckPoints().size() - 1 : player.getCheckPoints().size();
+		model.addAttribute("charactersFound", player.getSecretWord().substring(0, charactersFound));
+	}
+
+	private void checkValidLocation(Model model, Player player, String locationCode) throws LocationNotFoundException {
+		Location requestedLocation = locationServices.findByCode(locationCode);
+		
+		if(requestedLocation == null) throw new LocationNotFoundException();
+		
+		if(requestedLocation.equals(player.getCheckPoints().get(0).getLocation())) {
+			model.addAttribute("resultMessage", "Congratulations! New character added!");
+			player.getCheckPoints().get(0).setCheckedDate(new Date());
+			
+			if(player.getCheckPoints().size() == 5) {	// End game
+				playerServices.savePlayer(player);
+			} else {	// Assign new check point
+				playerServices.addCheckPoint(player);
+			}
+		
+		} else {
+			model.addAttribute("resultMessage", "Wrong place! try again...");
+		}
 		
 	}
 

@@ -18,7 +18,7 @@
 	<c:if test="${message != null}">
 		<h2 style="color:red"><c:out value="${message}" /></h2>
 	</c:if>
-	<form:form method="post" modelAttribute="checkPointFormDTO" action="/players/checkPlayerStatus">
+	<form:form method="post" modelAttribute="checkPointFormDTO" action="/players/checkPoint">
 		<form:hidden path="locationCode" />
 		<table>
 			<tr>

@@ -46,6 +46,13 @@
 				</td>
 			</tr>
 			<tr>
+				<td>Enable start game:</td>
+				<td>
+					<form:checkbox path="eventStarted" />
+					<form:errors path="eventStarted" cssClass="error" />
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2">
 					<input type="submit" value="Save" />
 				</td>

@@ -19,7 +19,7 @@ public class CheckPointAssigner {
 	@Autowired
 	private LocationServices locationServices;
 	
-	private Random random;
+	private Random random = new Random();
 	
 	public CheckPoint assignCheckPoint(Player player) {
 		CheckPoint checkPoint = new CheckPoint();
@@ -33,10 +33,11 @@ public class CheckPointAssigner {
 	private Location selectLocation(List<CheckPoint> checkPoints,
 			boolean sameZoneAllowed,
 			boolean repeatLocationAllowed) {
-		CheckPoint currentCheckPoint = checkPoints.get(0);
+		CheckPoint currentCheckPoint = checkPoints.isEmpty() ? null : checkPoints.get(0);
+		int zone = currentCheckPoint == null ? -1 : currentCheckPoint.getLocation().getZone();
 		
 		List<Location> availableLocations = locationServices.listLocations();
-		if(!sameZoneAllowed) availableLocations = removeSameZoneLocations(availableLocations, currentCheckPoint.getLocation().getZone());
+		if(!sameZoneAllowed) availableLocations = removeSameZoneLocations(availableLocations, zone);
 		if(!repeatLocationAllowed) availableLocations = removeVisitedLocations(availableLocations, checkPoints);
 		
 		if(availableLocations.size() == 0) {

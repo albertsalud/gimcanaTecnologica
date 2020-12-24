@@ -2,6 +2,8 @@ package tk.daudecinc.gimcana.model.services;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,6 @@ public class LocationServices {
 	
 	private List<Location> allLocations;
 	
-	public LocationServices() {
-		allLocations = locationDao.findAll();
-	}
 
 	public List<Location> listLocations() {
 		return allLocations;
@@ -36,6 +35,11 @@ public class LocationServices {
 
 	public Location findByCode(String locationCode) {
 		return locationDao.findByCode(locationCode);
+	}
+	
+	@PostConstruct
+	private void initAllLocations() {
+		allLocations = locationDao.findAll();
 	}
 
 }

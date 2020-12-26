@@ -18,11 +18,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/players/*", "/eventos/*").permitAll()
+				.antMatchers("/players/*", "/events/*").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
 				.permitAll()
+				.defaultSuccessUrl("/admin")
 				.and()
 			.logout()
 				.permitAll();

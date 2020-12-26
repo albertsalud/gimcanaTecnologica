@@ -10,7 +10,7 @@
 <body>
 	<h1>Event Players list</h1>
 	<p>
-		<a href="/admin/eventos">&lt; Return to events list</a>
+		<a href="/admin/events">&lt; Return to events list</a>
 	</p>
 	<table>
 		<tr>
@@ -24,16 +24,16 @@
 				<td>
 					<c:choose>
 						<c:when test="${currentPlayer.present}">
-							<a href="/admin/eventos/${currentPlayer.event.id}/players?player=${currentPlayer.id}&present=false">&gt; Mark as not present</a>
+							<a href="/admin/events/${currentPlayer.event.id}/players?player=${currentPlayer.id}&present=false">&gt; Mark as not present</a>
 						</c:when>
 						<c:otherwise>
-							<a href="/admin/eventos/${currentPlayer.event.id}/players?player=${currentPlayer.id}&present=true">&gt; Mark as present</a>
+							<a href="/admin/events/${currentPlayer.event.id}/players?player=${currentPlayer.id}&present=true">&gt; Mark as present</a>
 						</c:otherwise>
 					</c:choose>
 				</td>
 				<td>
 					<c:if test="${currentPlayer.present}">
-						<a href="/admin/eventos/${currentPlayer.event.id}/players/${currentPlayer.id}">&gt; Progress</a>
+						<a href="/admin/events/${currentPlayer.event.id}/players/${currentPlayer.id}">&gt; Progress</a>
 					</c:if>
 				</td>
 			</tr>

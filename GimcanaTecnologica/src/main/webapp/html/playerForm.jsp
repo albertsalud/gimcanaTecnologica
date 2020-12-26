@@ -18,7 +18,7 @@
 	<c:if test="${message != null}">
 		<h2 style="color:red"><c:out value="${message}" /></h2>
 	</c:if>
-	<form:form method="post" modelAttribute="player" action="/eventos/registry">
+	<form:form method="post" modelAttribute="player" action="/events/registry">
 		<form:hidden path="id"/>
 		<form:hidden path="secretWord" />
 		<table>

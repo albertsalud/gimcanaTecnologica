@@ -1,6 +1,8 @@
 package tk.daudecinc.gimcana.model.services;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
@@ -26,7 +28,7 @@ public class LocationServices {
 	public void saveLocation(Location location) {
 		locationDao.save(location);
 		
-		allLocations = locationDao.findAll();
+		initAllLocations();
 	}
 
 	public Location getLocation(Long locationId) {
@@ -40,6 +42,17 @@ public class LocationServices {
 	@PostConstruct
 	private void initAllLocations() {
 		allLocations = locationDao.findAll();
+		sortByName();
+		
+	}
+
+	private void sortByName() {
+		if(allLocations != null) {
+			allLocations = allLocations.stream()
+					.sorted(Comparator.comparing(Location::getName))
+					.collect(Collectors.toList());
+		}
+		
 	}
 
 }

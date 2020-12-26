@@ -10,18 +10,23 @@
 <body>
 	<h1>Location list</h1>
 	<p>
+		<a href="/admin">&lt; Return home</a>
+	</p>
+	<p>
 		<a href="/admin/locations/new">&gt; Add new location</a>
 	</p>
 	<table>
 		<tr>
 			<th>Location name</th>
+			<th>Location zone</th>
 			<th></th>
 		</tr>
 		<c:forEach items="${locations}" var="currentLocation">
 			<tr>
 				<td>${currentLocation.name}</td>
+				<td>${currentLocation.zone}</td>
 				<td>
-					<a href="/admin/locations/${currentLocation.id}">Edit</a>
+					<a href="/admin/locations/${currentLocation.id}">&gt; Edit</a>
 				</td>
 			</tr>
 		</c:forEach>

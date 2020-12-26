@@ -10,6 +10,9 @@
 <body>
 	<h1>Event list</h1>
 	<p>
+		<a href="/admin">&lt; Return home</a>
+	</p>
+	<p>
 		<a href="/admin/events/new">&gt; Add new event</a>
 	</p>
 	<table>

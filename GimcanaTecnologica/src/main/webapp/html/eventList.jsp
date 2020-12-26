@@ -10,7 +10,7 @@
 <body>
 	<h1>Event list</h1>
 	<p>
-		<a href="/admin/eventos/nuevo">&gt; Add new event</a>
+		<a href="/admin/events/new">&gt; Add new event</a>
 	</p>
 	<table>
 		<tr>
@@ -23,8 +23,8 @@
 				<td>${currentEvent.name}</td>
 				<td>${currentEvent.initDate}</td>
 				<td>
-					<a href="/admin/eventos/${currentEvent.id}">&gt; Edit</a>
-					<a href="/admin/eventos/${currentEvent.id}/players">&gt; Players list</a>
+					<a href="/admin/events/${currentEvent.id}">&gt; Edit</a>
+					<a href="/admin/events/${currentEvent.id}/players">&gt; Players list</a>
 				</td>
 			</tr>
 		</c:forEach>

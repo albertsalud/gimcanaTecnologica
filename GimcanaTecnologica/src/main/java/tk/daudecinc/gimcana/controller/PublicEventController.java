@@ -16,7 +16,7 @@ import tk.daudecinc.gimcana.model.services.EventServices;
 import tk.daudecinc.gimcana.model.services.PlayerServices;
 
 @Controller
-@RequestMapping("/eventos")
+@RequestMapping("/events")
 public class PublicEventController {
 	
 	@Autowired
@@ -25,7 +25,7 @@ public class PublicEventController {
 	@Autowired
 	private PlayerServices playerServices;
 	
-	@GetMapping("/registro")
+	@GetMapping("/events")
 	public String listEvents(Model model) {
 		return goToPlayerRegistrationForm(model, new Player());
 		
@@ -38,7 +38,7 @@ public class PublicEventController {
 		return "playerForm";
 	}
 	
-	@PostMapping("/registro")
+	@PostMapping("/events")
 	public String registryPlayer(
 			@Valid @ModelAttribute Player player,
 			BindingResult bindingResult,

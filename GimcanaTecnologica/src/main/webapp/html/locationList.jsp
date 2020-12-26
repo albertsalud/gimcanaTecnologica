@@ -10,7 +10,7 @@
 <body>
 	<h1>Location list</h1>
 	<p>
-		<a href="/admin/localizaciones/nueva">&gt; Add new location</a>
+		<a href="/admin/locations/new">&gt; Add new location</a>
 	</p>
 	<table>
 		<tr>
@@ -21,7 +21,7 @@
 			<tr>
 				<td>${currentLocation.name}</td>
 				<td>
-					<a href="/admin/localizaciones/${currentLocation.id}">Edit</a>
+					<a href="/admin/locations/${currentLocation.id}">Edit</a>
 				</td>
 			</tr>
 		</c:forEach>

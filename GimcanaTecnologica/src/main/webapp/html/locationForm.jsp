@@ -19,9 +19,9 @@
 		<h2 style="color:red"><c:out value="${message}" /></h2>
 	</c:if>
 	<p>
-		<a href="/admin/localizaciones">&lt; return to locations list</a>
+		<a href="/admin/locations">&lt; Return to locations list</a>
 	</p>
-	<form:form method="post" modelAttribute="location" action="/admin/localizaciones/guardar">
+	<form:form method="post" modelAttribute="location" action="/admin/locations/save">
 		<form:hidden path="id"/>
 		<table>
 			<tr>

@@ -16,6 +16,7 @@
 		<tr>
 			<th>Player name</th>
 			<th></th>
+			<th></th>
 		</tr>
 		<c:forEach items="${players}" var="currentPlayer">
 			<tr>
@@ -29,6 +30,11 @@
 							<a href="/admin/eventos/${currentPlayer.event.id}/players?player=${currentPlayer.id}&present=true">&gt; Mark as present</a>
 						</c:otherwise>
 					</c:choose>
+				</td>
+				<td>
+					<c:if test="${currentPlayer.present}">
+						<a href="/admin/eventos/${currentPlayer.event.id}/players/${currentPlayer.id}">&gt; Progress</a>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>

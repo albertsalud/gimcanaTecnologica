@@ -16,16 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tk.daudecinc.gimcana.model.entities.Event;
+import tk.daudecinc.gimcana.model.entities.Player;
 import tk.daudecinc.gimcana.model.services.EventServices;
+import tk.daudecinc.gimcana.model.services.PlayerServices;
 
 @Controller
-@RequestMapping("/admin/eventos")
+@RequestMapping("/admin/events")
 public class EventController {
 	
 	@Autowired
 	private EventServices eventServices;
 	
-	@GetMapping("/nuevo")
+	@Autowired
+	private PlayerServices playerServices;
+	
+	@GetMapping("/new")
 	public String goToEventForm(Model model) {
 		return goToEventForm(model, new Event());
 	}
@@ -35,7 +40,7 @@ public class EventController {
 		return "eventForm";
 	}
 	
-	@PostMapping("/guardar")
+	@PostMapping("/save")
 	public String saveEvent(
 			@Valid @ModelAttribute Event eventToSave,
 			BindingResult bindingResult,
@@ -86,6 +91,24 @@ public class EventController {
 		
 		model.addAttribute("players", eventServices.getEventPlayers(eventSearched));
 		return "eventPlayersList";
+	}
+	
+	@GetMapping("/{eventId}/players/{playerId}")
+	public String getEventPlayersProgress(
+			@PathVariable(required = true) Long eventId,
+			@PathVariable(required = true) Long playerId,
+			Model model
+			) {
+		
+		Player player = playerServices.findById(playerId);
+				
+		if(player == null) {
+			model.addAttribute("message", "Requested player not exists!");
+			return this.getEventPlayersList(eventId, null, null, model);
+		}
+			
+		model.addAttribute("player", player);
+		return "eventPlayerStatus";
 	}
 	
 	@GetMapping(value = {"", "/ "})

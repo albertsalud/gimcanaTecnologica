@@ -16,13 +16,13 @@ import tk.daudecinc.gimcana.model.entities.Location;
 import tk.daudecinc.gimcana.model.services.LocationServices;
 
 @Controller
-@RequestMapping("/admin/localizaciones")
+@RequestMapping("/admin/locations")
 public class LocationController {
 	
 	@Autowired
 	private LocationServices locationServices;
 	
-	@GetMapping("/nueva")
+	@GetMapping("/new")
 	public String locationForm(Model model) {
 		return goToLocationForm(model, new Location());
 	}
@@ -32,7 +32,7 @@ public class LocationController {
 		return "locationForm";
 	}
 	
-	@PostMapping("/guardar")
+	@PostMapping("/save")
 	public String saveLocation(
 			Model model,
 			@Valid @ModelAttribute Location location,

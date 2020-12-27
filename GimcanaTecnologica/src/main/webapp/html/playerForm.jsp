@@ -21,9 +21,7 @@
 	<p>
 		<a href="/">&lt; Return main page</a>
 	</p>
-	<form:form method="post" modelAttribute="player" action="/events/registry">
-		<form:hidden path="id"/>
-		<form:hidden path="secretWord" />
+	<form:form method="post" modelAttribute="playerRegistrationDTO" action="/events/registry">
 		<table>
 			<tr>
 				<td>Event:</td>
@@ -42,8 +40,15 @@
 			<tr>
 				<td>Player password:</td>
 				<td>
-					<form:input path="password" />
+					<form:password path="password" />
 					<form:errors path="password" cssClass="error" />
+				</td>
+			</tr>
+			<tr>
+				<td>Repeat password:</td>
+				<td>
+					<form:password path="repeatedPassword" />
+					<form:errors path="repeatedPassword" cssClass="error" />
 				</td>
 			</tr>
 			<tr>

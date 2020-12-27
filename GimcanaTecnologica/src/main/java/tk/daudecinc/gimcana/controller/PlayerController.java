@@ -53,6 +53,8 @@ public class PlayerController {
 	private String goToCheckPointForm(Model model, CheckPointFormDTO dto) {
 		List<Event> startedEvents = eventServices.getStartedEvents();
 		model.addAttribute("events", startedEvents);
+		
+		if(startedEvents.isEmpty()) return "noEventsStarted";
 
 		if(dto.getEventId() != null || startedEvents.size() == 1) {
 			dto.setEventId(dto.getEventId() != null ? dto.getEventId() : startedEvents.get(0).getId());

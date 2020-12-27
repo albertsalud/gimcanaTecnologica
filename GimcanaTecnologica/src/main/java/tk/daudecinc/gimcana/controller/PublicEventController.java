@@ -25,7 +25,7 @@ public class PublicEventController {
 	@Autowired
 	private PlayerServices playerServices;
 	
-	@GetMapping("/events")
+	@GetMapping("/registry")
 	public String listEvents(Model model) {
 		return goToPlayerRegistrationForm(model, new Player());
 		
@@ -38,7 +38,7 @@ public class PublicEventController {
 		return "playerForm";
 	}
 	
-	@PostMapping("/events")
+	@PostMapping("/registry")
 	public String registryPlayer(
 			@Valid @ModelAttribute Player player,
 			BindingResult bindingResult,

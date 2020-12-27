@@ -9,7 +9,7 @@ import tk.daudecinc.gimcana.model.entities.Player;
 
 public interface PlayerDAO extends JpaRepository<Player, Long>{
 	
-	Player findByNameAndPassword(String name, String password);
+	Player findByIdAndPassword(Long id, String password);
 
 	List<Player> findAllByEventOrderByName(Event event);
 

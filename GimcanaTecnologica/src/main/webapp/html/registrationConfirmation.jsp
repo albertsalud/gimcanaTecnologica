@@ -8,5 +8,8 @@
 </head>
 <body>
 	<h1>Congratulations, you have been registered!</h1>
+	<p>
+		<a href="/">&gt; Return main page</a>
+	</p>
 </body>
 </html>

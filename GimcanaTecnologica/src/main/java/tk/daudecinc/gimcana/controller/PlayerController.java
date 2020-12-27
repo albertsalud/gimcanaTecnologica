@@ -1,6 +1,7 @@
 package tk.daudecinc.gimcana.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -18,8 +19,10 @@ import tk.daudecinc.gimcana.controller.dto.CheckPointFormDTO;
 import tk.daudecinc.gimcana.controller.exceptions.EventNotStartedException;
 import tk.daudecinc.gimcana.controller.exceptions.LocationNotFoundException;
 import tk.daudecinc.gimcana.controller.exceptions.PlayerNotFoundException;
+import tk.daudecinc.gimcana.model.entities.Event;
 import tk.daudecinc.gimcana.model.entities.Location;
 import tk.daudecinc.gimcana.model.entities.Player;
+import tk.daudecinc.gimcana.model.services.EventServices;
 import tk.daudecinc.gimcana.model.services.LocationServices;
 import tk.daudecinc.gimcana.model.services.PlayerServices;
 
@@ -33,6 +36,9 @@ public class PlayerController {
 	@Autowired
 	private LocationServices locationServices;
 	
+	@Autowired
+	private EventServices eventServices;
+	
 	@GetMapping("/checkPoint")
 	public String goToCheckPointForm(
 			@RequestParam(name = "locationCode", required = false) String locationCode,
@@ -45,6 +51,14 @@ public class PlayerController {
 	}
 	
 	private String goToCheckPointForm(Model model, CheckPointFormDTO dto) {
+		List<Event> startedEvents = eventServices.getStartedEvents();
+		model.addAttribute("events", startedEvents);
+
+		if(dto.getEventId() != null) {
+			Event selectedEvent = eventServices.getEvent(dto.getEventId());
+			model.addAttribute("playersList", eventServices.getEventPlayers(selectedEvent));
+		}
+
 		model.addAttribute("checkPointFormDTO", dto);
 		return "checkPointForm";
 	}
@@ -137,7 +151,7 @@ public class PlayerController {
 	}
 
 	private Player lookForPlayer(@Valid CheckPointFormDTO checkPointFormDTO) throws PlayerNotFoundException {
-		Player player = playerServices.findByUserAndPassword(checkPointFormDTO.getPlayerName(),
+		Player player = playerServices.findByIdAndPassword(checkPointFormDTO.getPlayerId(),
 				checkPointFormDTO.getPassword());
 		
 		if(player == null) throw new PlayerNotFoundException();

@@ -1,6 +1,7 @@
 package tk.daudecinc.gimcana.model.services;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,9 @@ public class EventServices {
 	}
 
 	public List<Event> listEvents() {
-		return eventDao.findAll();
+		return eventDao.findAll().stream()
+				.sorted(Comparator.comparing(Event::getInitDate).reversed())
+				.collect(Collectors.toList());
 	}
 	
 	public List<Event> listEventsAllowedForRegistration(){
@@ -41,10 +44,14 @@ public class EventServices {
 	
 	
 	private List<Event> getFutureEvents(List<Event> events){
+		Calendar yesterday = Calendar.getInstance();
+		yesterday.add(Calendar.DAY_OF_MONTH, -1);
+		
 		return events.stream()
 				.filter(e -> {
-					return e.getInitDate().after(new Date());
+					return e.getInitDate().after(yesterday.getTime());
 					})
+				.sorted(Comparator.comparing(Event::getInitDate))
 				.collect(Collectors.toList());
 	}
 	
@@ -69,6 +76,18 @@ public class EventServices {
 			player.setPresent(present);
 			playerServices.savePlayer(player);
 		}
+	}
+
+	public List<Event> getStartedEvents() {
+		return this.getStartedEvents(eventDao.findAll());
+	}
+
+	private List<Event> getStartedEvents(List<Event> events) {
+		return getFutureEvents(events).stream()
+				.filter(e -> {
+					return e.isEventStarted();
+				})
+				.collect(Collectors.toList());
 	}
 	
 }

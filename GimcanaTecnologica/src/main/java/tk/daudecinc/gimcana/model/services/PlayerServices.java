@@ -33,8 +33,8 @@ public class PlayerServices {
 		playerDao.save(player);
 	}
 
-	public Player findByUserAndPassword(String playerName, String password) {
-		return playerDao.findByNameAndPassword(playerName, password);
+	public Player findByIdAndPassword(Long playerId, String password) {
+		return playerDao.findByIdAndPassword(playerId, password);
 	}
 
 	public void addCheckPoint(Player player) {

@@ -17,14 +17,18 @@
 	</p>
 	<table>
 		<tr>
-			<th>Event name</th>
 			<th>Event date</th>
+			<th>Event name</th>
+			<th>Registry available</th>
+			<th>Event started</th>
 			<th></th>
 		</tr>
 		<c:forEach items="${listEvents}" var="currentEvent">
 			<tr>
-				<td>${currentEvent.name}</td>
 				<td>${currentEvent.initDate}</td>
+				<td>${currentEvent.name}</td>
+				<td>${currentEvent.allowPlayersRegistration}</td>
+				<td>${currentEvent.eventStarted}</td>
 				<td>
 					<a href="/admin/events/${currentEvent.id}">&gt; Edit</a>
 					<a href="/admin/events/${currentEvent.id}/players">&gt; Players list</a>

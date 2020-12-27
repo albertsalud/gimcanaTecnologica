@@ -18,6 +18,9 @@
 	<c:if test="${message != null}">
 		<h2 style="color:red"><c:out value="${message}" /></h2>
 	</c:if>
+	<p>
+		<a href="/">&lt; Return main page</a>
+	</p>
 	<form:form method="post" modelAttribute="player" action="/events/registry">
 		<form:hidden path="id"/>
 		<form:hidden path="secretWord" />
@@ -25,7 +28,7 @@
 			<tr>
 				<td>Event:</td>
 				<td>
-					<form:select path="event" items="${events}" itemLabel="name" itemValue="id">
+					<form:select path="event" items="${events}" itemLabel="fullEventName" itemValue="id">
 					</form:select>
 				</td>
 			</tr>

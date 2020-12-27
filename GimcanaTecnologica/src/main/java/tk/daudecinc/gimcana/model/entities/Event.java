@@ -41,5 +41,9 @@ public class Event {
 	private boolean allowPlayersRegistration;
 	
 	private boolean eventStarted;
+	
+	public String getFullEventName() {
+		return "(" + initDate + ") " + name;
+	}
 }
 

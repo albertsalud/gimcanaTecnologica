@@ -10,6 +10,31 @@
 	color: red;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+function getEventPlayers(){
+	var selectedEventId = $("#eventId").val();
+	if(selectedEventId != "") {
+		$.ajax({
+			  method: "GET",
+			  url: "/players-rest/eventPlayers",
+			  data: {eventId:selectedEventId}
+		})
+		.done(function( players ) {
+			$("#playerId").empty();
+			$(players).each(function(index, player){
+				$("#playerId").append(new Option(player.name, player.id));
+			});
+		});
+	
+	} else {
+		$("#playerId").empty();
+		$("#playerId").append(new Option("- Select an event-", ""));
+	}
+	
+}
+</script>
 <meta charset="utf-8">
 <title>Player Form</title>
 </head>
@@ -22,10 +47,30 @@
 		<form:hidden path="locationCode" />
 		<table>
 			<tr>
-				<td>Player name:</td>
+				<td>Event:</td>
 				<td>
-					<form:input path="playerName" />
-					<form:errors path="playerName" cssClass="error" />
+					<form:select path="eventId" onchange="getEventPlayers()">
+						<c:if test="${events.size() > 1 }">
+							<form:option value="">- Available events -</form:option>
+						</c:if>
+						<form:options items="${events}" itemLabel="fullEventName" itemValue="id"/>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<td>Player:</td>
+				<td>
+					<c:choose>
+						<c:when test="${playersList != null}">
+							<form:select path="playerId" items="${playersList}" itemValue="id" itemLabel="name">
+							</form:select>
+						</c:when>
+						<c:otherwise>
+							<form:select path="playerId" >
+								<form:option value="">- Select an event -</form:option>
+							</form:select>
+						</c:otherwise>
+					</c:choose>
 				</td>
 			</tr>
 			<tr>

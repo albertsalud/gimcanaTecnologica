@@ -58,7 +58,7 @@ public class PlayerController {
 			dto.setEventId(dto.getEventId() != null ? dto.getEventId() : startedEvents.get(0).getId());
 			
 			Event selectedEvent = eventServices.getEvent(dto.getEventId());
-			model.addAttribute("playersList", eventServices.getEventPlayers(selectedEvent));
+			model.addAttribute("playersList", eventServices.getEventPresentPlayers(selectedEvent));
 		}
 
 		model.addAttribute("checkPointFormDTO", dto);

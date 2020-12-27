@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -38,21 +39,17 @@ public class Player {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotBlank(message = "Player name is mandatory")
-	@NotNull
+	@Column(nullable = false)
 	private String name;
 	
-	@NotBlank(message = "Player password is mandatory")
-	@Size(min = 4, message = "Password must contain 4 characters at least")
-	@NotNull
+	@Column(nullable = false)
 	private String password;
 	
-	@NotNull
+	@Column(nullable = false)
 	private String secretWord;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "event_id")
-	@NotNull
 	private Event event;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

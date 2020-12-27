@@ -2,6 +2,7 @@ package tk.daudecinc.gimcana.controller.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +17,12 @@ public class PlayerRegistrationDTO {
 	@NotNull
 	private Event event;
 	
-	@NotBlank(message = "Name is mandatory")
+	@NotBlank(message = "Player name is mandatory")
 	private String name;
 	
-	@NotBlank(message = "Password is mandatory")
+	@NotBlank(message = "Player password is mandatory")
+	@Size(min = 4, message = "Password must contain 4 characters at least")
+	@NotNull
 	private String password;
 	
 	@NotBlank(message = "Repeated password is mandatory")

@@ -89,5 +89,13 @@ public class EventServices {
 				})
 				.collect(Collectors.toList());
 	}
+
+	public List<Player> getEventPresentPlayers(Event selectedEvent) {
+		return this.getEventPlayers(selectedEvent).stream()
+				.filter(p -> {
+					return p.isPresent();
+				})
+				.collect(Collectors.toList());
+	}
 	
 }

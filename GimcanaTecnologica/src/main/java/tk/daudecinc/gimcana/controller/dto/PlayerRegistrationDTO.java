@@ -5,10 +5,12 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tk.daudecinc.gimcana.controller.dto.validation.PasswordDoubleCheck;
 import tk.daudecinc.gimcana.model.entities.Event;
 
 @Data
 @NoArgsConstructor
+@PasswordDoubleCheck(password = "password", repeatedPassword = "repeatedPassword")
 public class PlayerRegistrationDTO {
 	
 	@NotNull

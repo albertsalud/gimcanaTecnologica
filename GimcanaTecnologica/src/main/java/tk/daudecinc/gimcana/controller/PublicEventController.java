@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,8 +51,6 @@ public class PublicEventController {
 		}
 		
 		try {
-			managePasswords(dto, bindingResult);
-			
 			Player player = buildPlayer(dto);
 			playerServices.savePlayer(player);
 		
@@ -63,16 +60,6 @@ public class PublicEventController {
 		}
 		
 		return "registrationConfirmation";
-	}
-
-	private void managePasswords(@Valid PlayerRegistrationDTO dto, BindingResult bindingResult) throws Exception {
-		if(!dto.getPassword().equals(dto.getRepeatedPassword())) {
-			ObjectError error = new ObjectError("playerRegistrationDTO", "Passwords must be the same");
-			bindingResult.addError(error);
-			
-			throw new Exception("Unable to registry new player.");
-		}
-		
 	}
 
 	private Player buildPlayer(@Valid PlayerRegistrationDTO dto) {

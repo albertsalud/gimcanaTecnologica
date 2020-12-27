@@ -54,7 +54,9 @@ public class PlayerController {
 		List<Event> startedEvents = eventServices.getStartedEvents();
 		model.addAttribute("events", startedEvents);
 
-		if(dto.getEventId() != null) {
+		if(dto.getEventId() != null || startedEvents.size() == 1) {
+			dto.setEventId(dto.getEventId() != null ? dto.getEventId() : startedEvents.get(0).getId());
+			
 			Event selectedEvent = eventServices.getEvent(dto.getEventId());
 			model.addAttribute("playersList", eventServices.getEventPlayers(selectedEvent));
 		}

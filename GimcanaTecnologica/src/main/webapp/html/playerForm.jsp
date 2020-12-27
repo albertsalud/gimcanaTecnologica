@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -51,6 +52,16 @@
 					<form:errors path="repeatedPassword" cssClass="error" />
 				</td>
 			</tr>
+			<spring:hasBindErrors name="playerRegistrationDTO">
+				<c:forEach var="error" items="${errors.allErrors}">
+					<c:catch var="exception"><c:set var="errorField" value="${error.field}" /></c:catch>
+					<c:if test="${not empty exception}">
+						<tr>
+							<td colspan="2" class="error"><spring:message message="${error}" /></td>
+						</tr>
+					</c:if>
+			    </c:forEach>
+			</spring:hasBindErrors>
 			<tr>
 				<td colspan="2">
 					<input type="submit" value="Save" />

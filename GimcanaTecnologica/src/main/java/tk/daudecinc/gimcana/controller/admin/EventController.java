@@ -41,7 +41,7 @@ public class EventController {
 	}
 	
 	private String goToEventForm(Model model, EventFormDTO event) {
-		model.addAttribute("event", event);
+		model.addAttribute("eventFormDTO", event);
 		return "eventForm";
 	}
 	

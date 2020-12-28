@@ -21,7 +21,7 @@
 	<p>
 		<a href="/admin/locations">&lt; Return to locations list</a>
 	</p>
-	<form:form method="post" modelAttribute="location" action="/admin/locations/save">
+	<form:form method="post" modelAttribute="locationFormDTO" action="/admin/locations/save">
 		<form:hidden path="id"/>
 		<table>
 			<tr>

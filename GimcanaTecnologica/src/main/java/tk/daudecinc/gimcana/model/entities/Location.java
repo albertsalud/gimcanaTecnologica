@@ -20,21 +20,16 @@ public class Location {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@NotBlank
-	@NotNull
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String code;
 	
-	@NotBlank
-	@NotNull
+	@Column(nullable = false)
 	private String name;
 	
-	@NotBlank
-	@NotNull
+	@Column(nullable = false)
 	private String description;
 	
 	private int zone;
-	
 	private boolean available = true;
 
 }

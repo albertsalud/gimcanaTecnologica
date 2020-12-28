@@ -32,7 +32,7 @@ $( function() {
 	<p>
 		<a href="/admin/events">&lt; Return to events list</a>
 	</p>
-	<form:form method="post" modelAttribute="event" action="/admin/events/save">
+	<form:form method="post" modelAttribute="eventFormDTO" action="/admin/events/save">
 		<form:hidden path="id"/>
 		<table>
 			<tr>

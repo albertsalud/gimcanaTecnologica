@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import tk.daudecinc.gimcana.controller.dto.EventFormDTO;
 import tk.daudecinc.gimcana.model.entities.Event;
 import tk.daudecinc.gimcana.model.entities.Player;
 import tk.daudecinc.gimcana.model.services.EventServices;
@@ -30,32 +32,54 @@ public class EventController {
 	@Autowired
 	private PlayerServices playerServices;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@GetMapping("/new")
 	public String goToEventForm(Model model) {
-		return goToEventForm(model, new Event());
+		return goToEventForm(model, new EventFormDTO());
 	}
 	
-	private String goToEventForm(Model model, Event event) {
+	private String goToEventForm(Model model, EventFormDTO event) {
 		model.addAttribute("event", event);
 		return "eventForm";
 	}
 	
 	@PostMapping("/save")
 	public String saveEvent(
-			@Valid @ModelAttribute Event eventToSave,
+			@Valid @ModelAttribute EventFormDTO eventFormDTO,
 			BindingResult bindingResult,
 			Model model
 			) {
 		
 		if(bindingResult.hasErrors()) {
-			return this.goToEventForm(model, eventToSave);
+			return this.goToEventForm(model, eventFormDTO);
 		}
 		
+		Event eventToSave = manageEventFormDTO(eventFormDTO);
 		eventServices.saveEvent(eventToSave);
 		
 		return this.listEvents(model);
 	}
 	
+	private Event manageEventFormDTO(@Valid EventFormDTO eventFormDTO) {
+		if(eventFormDTO.getId() == null) {
+			return modelMapper.map(eventFormDTO, Event.class);
+		
+		} else {
+			return setEvent(eventServices.getEvent(eventFormDTO.getId()), eventFormDTO);
+		}
+		
+	}
+
+	private Event setEvent(Event event, @Valid EventFormDTO eventFormDTO) {
+		event.setAllowPlayersRegistration(eventFormDTO.isAllowPlayersRegistration());
+		event.setEventStarted(eventFormDTO.isEventStarted());
+		event.setInitDate(eventFormDTO.getInitDate());
+		event.setName(eventFormDTO.getName());
+		return event;
+	}
+
 	@GetMapping("/{eventId}")
 	public String getEvent(
 			@PathVariable(required = true) Long eventId,
@@ -64,12 +88,14 @@ public class EventController {
 		
 		Event eventSearched = eventServices.getEvent(eventId);
 		
+		EventFormDTO dto; 
 		if(eventSearched == null) {
 			model.addAttribute("message", "Requested event not exists!");
-			eventSearched = new Event();
+			dto = new EventFormDTO();
 		}
 		
-		return goToEventForm(model, eventSearched);
+		dto = modelMapper.map(eventSearched, EventFormDTO.class);
+		return goToEventForm(model, dto);
 	}
 	
 	@GetMapping("/{eventId}/players")

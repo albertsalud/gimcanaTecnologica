@@ -20,7 +20,7 @@ public class EventServices {
 	
 	@Autowired
 	private PlayerServices playerServices;
-
+	
 	public void saveEvent(Event event) {
 		eventDao.save(event);
 	}

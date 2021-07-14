@@ -3,33 +3,37 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Location List</title>
-</head>
+<jsp:include page="head.jsp" />
 <body>
-	<h1>Location list</h1>
-	<p>
-		<a href="/admin">&lt; Return home</a>
-	</p>
-	<p>
-		<a href="/admin/locations/new">&gt; Add new location</a>
-	</p>
-	<table>
-		<tr>
-			<th>Location name</th>
-			<th>Location zone</th>
-			<th></th>
-		</tr>
-		<c:forEach items="${locations}" var="currentLocation">
-			<tr>
-				<td>${currentLocation.name}</td>
-				<td>${currentLocation.zone}</td>
-				<td>
-					<a href="/admin/locations/${currentLocation.id}">&gt; Edit</a>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
+	<div id="header">
+		<c:import url="http://daudecinc.tk/menu.html" />
+	</div>
+	<div id="content-wrapper">
+		<div id="content" class="no-news">
+			<h1>Locations list</h1>
+			<p>
+				<a href="<c:url value="/admin" />">&lt; Return home</a>
+			</p>
+			<p>
+				<a href="<c:url value="/admin/locations/new" />">&gt; Add new location</a>
+			</p>
+			<table id="data-table" cellpadding="5" cellspacing="0">
+				<tr>
+					<th>Location name</th>
+					<th>Location zone</th>
+					<th></th>
+				</tr>
+				<c:forEach items="${locations}" var="currentLocation">
+					<tr>
+						<td>${currentLocation.name}</td>
+						<td>${currentLocation.zone}</td>
+						<td>
+							<a href="<c:url value="/admin/locations/${currentLocation.id}" />">&gt; Edit</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</div>
 </body>
 </html>

@@ -3,32 +3,36 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Event Player Status</title>
-</head>
+<jsp:include page="head.jsp" />
 <body>
-	<h1>Event Player Status</h1>
-	<p>
-		<a href="/admin/events/${player.event.id}/players">&lt; Return to event player list</a>
-	</p>
-	<p>
-		Player: ${player.name}
-	<p>
-	<p>CheckPoints:</p>
-	<table>
-		<tr>
-			<th>Location</th>
-			<th>Assigned</th>
-			<th>Checked</th>
-		</tr>
-		<c:forEach items="${player.checkPoints}" var="currentCheckPoint">
-			<tr>
-				<td>${currentCheckPoint.location.name}</td>
-				<td>${currentCheckPoint.assignedDate}</td>
-				<td>${currentCheckPoint.checkedDate}</td>
-			</tr>
-		</c:forEach>
-	</table>
+	<div id="header">
+		<c:import url="http://daudecinc.tk/menu.html" />
+	</div>
+	<div id="content-wrapper">
+		<div id="content" class="no-news">
+			<h1>Event Player Status</h1>
+			<p>
+				<a href="<c:url value="/admin/events/${player.event.id}/players" />">&lt; Return to event player list</a>
+			</p>
+			<p>
+				Player: ${player.name}
+			<p>
+			<p>CheckPoints:</p>
+			<table id="data-table" cellpadding="5" cellspacing="0">
+				<tr>
+					<th>Location</th>
+					<th>Assigned</th>
+					<th>Checked</th>
+				</tr>
+				<c:forEach items="${player.checkPoints}" var="currentCheckPoint">
+					<tr>
+						<td>${currentCheckPoint.location.name}</td>
+						<td>${currentCheckPoint.assignedDate}</td>
+						<td>${currentCheckPoint.checkedDate}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</div>
 </body>
 </html>

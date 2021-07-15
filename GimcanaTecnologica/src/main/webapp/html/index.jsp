@@ -52,10 +52,9 @@
 			</c:if>
 			<p>Si ets un administrador del joc, <a href="admin">accedeix</a> per gestionar les gimcanes.</p>
 		</div>
+		<div id="tools">
+			<c:import url="http://daudecinc.tk/tools.html" />
+		</div>
 	</div>
-</body>
-</html>
-	
-
 </body>
 </html>

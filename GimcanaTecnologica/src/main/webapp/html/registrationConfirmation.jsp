@@ -19,6 +19,9 @@
 				<a href="/gimcana-tecnologica">&lt; Torna a la pàgina principal</a>
 			</p>
 		</div>
+		<div id="tools">
+			<c:import url="http://daudecinc.tk/tools.html" />
+		</div>
 	</div>
 </body>
 </html>

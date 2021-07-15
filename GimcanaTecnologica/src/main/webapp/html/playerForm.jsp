@@ -67,6 +67,9 @@
 				</table>
 			</form:form>
 		</div>
+		<div id="tools">
+			<c:import url="http://daudecinc.tk/tools.html" />
+		</div>
 	</div>
 </body>
 </html>

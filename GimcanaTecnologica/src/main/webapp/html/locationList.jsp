@@ -38,5 +38,8 @@
 			</p>
 		</div>
 	</div>
+	<div id="tools">
+		<c:import url="http://daudecinc.tk/tools.html" />
+	</div>
 </body>
 </html>

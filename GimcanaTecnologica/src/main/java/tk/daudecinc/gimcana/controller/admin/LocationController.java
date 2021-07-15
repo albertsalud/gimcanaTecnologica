@@ -1,7 +1,9 @@
 package tk.daudecinc.gimcana.controller.admin;
 
-import java.sql.SQLException;
+import java.io.InputStream;
+import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -19,6 +21,7 @@ import tk.daudecinc.gimcana.controller.dto.LocationFormDTO;
 import tk.daudecinc.gimcana.controller.exceptions.LocationNotFoundException;
 import tk.daudecinc.gimcana.model.entities.Location;
 import tk.daudecinc.gimcana.model.services.LocationServices;
+import tk.daudecinc.gimcana.tools.PDFLocationsGenerator;
 
 @Controller
 @RequestMapping("/admin/locations")
@@ -29,6 +32,9 @@ public class LocationController {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private PDFLocationsGenerator pdfGenerator;
 	
 	@GetMapping("/new")
 	public String locationForm(Model model) {
@@ -99,6 +105,34 @@ public class LocationController {
 		
 		dto = modelMapper.map(location, LocationFormDTO.class);
 		return goToLocationForm(model, dto);
+	}
+	
+	@GetMapping("/print")
+	public void generateLocationsPDFDocument(HttpServletResponse response) {
+
+		List<Location> locations = locationServices.listLocations();
+		locations.add(generateStartLocation());
+		InputStream pdf = pdfGenerator.generateLocationsPDFDocument(locations);
+
+		response.setContentType("application/pdf");
+		response.setHeader("Content-Disposition", "attachment; filename=\"locations.pdf\"");
+		
+		try {
+			byte[] buffer = new byte[10240];
+			for (int length = 0; (length = pdf.read(buffer)) > 0;) {
+				response.getOutputStream().write(buffer, 0, length);
+		    }
+			response.flushBuffer();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private Location generateStartLocation() {
+		Location startLocation = new Location();
+		startLocation.setName("Inici");
+		
+		return startLocation;
 	}
 
 }

@@ -33,6 +33,9 @@
 					</tr>
 				</c:forEach>
 			</table>
+			<p>
+				<a href="<c:url value="/admin/locations/print" />">&gt; Generate locations PDF document</a>
+			</p>
 		</div>
 	</div>
 </body>

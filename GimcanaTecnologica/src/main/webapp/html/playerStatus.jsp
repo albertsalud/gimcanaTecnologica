@@ -10,11 +10,11 @@
 	</div>
 	<div id="content-wrapper">
 		<div id="content" class="no-news">
-			<h1>Player status</h1>
+			<h1>Punt de control</h1>
 			<c:if test="${resultMessage != null }">
 				<p>${resultMessage}</p>
 			</c:if>
-			<p id="secretWord">Your secret word is: ${charactersFound}</p>
+			<p id="secretWord">De moment has trobat: <b>${charactersFound}</b></p>
 			<p>
 				${descriptionMessage}
 			</p>

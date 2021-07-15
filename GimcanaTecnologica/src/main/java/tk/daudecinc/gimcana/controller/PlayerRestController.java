@@ -25,7 +25,7 @@ public class PlayerRestController {
 			){
 		Event searchedEvent = eventServices.getEvent(eventId);
 		
-		return eventServices.getEventPlayers(searchedEvent);
+		return eventServices.getEventPresentPlayers(searchedEvent);
 
 	}
 

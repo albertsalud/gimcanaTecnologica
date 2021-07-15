@@ -45,7 +45,6 @@ public class PlayerServices {
 	}
 
 	public List<Player> findByEvent(Event event) {
-		// TODO Auto-generated method stub
 		return playerDao.findAllByEventOrderByName(event);
 	}
 

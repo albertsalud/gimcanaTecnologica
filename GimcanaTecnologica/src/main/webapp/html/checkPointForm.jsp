@@ -13,7 +13,7 @@ function getEventPlayers(){
 	if(selectedEventId != "") {
 		$.ajax({
 			  method: "GET",
-			  url: "/players-rest/eventPlayers",
+			  url: "<c:url value="/players-rest/eventPlayers" />",
 			  data: {eventId:selectedEventId}
 		})
 		.done(function( players ) {
@@ -25,7 +25,7 @@ function getEventPlayers(){
 	
 	} else {
 		$("#playerId").empty();
-		$("#playerId").append(new Option("- Select an event-", ""));
+		$("#playerId").append(new Option("- Selecciona una gimcana -", ""));
 	}
 	
 }
@@ -36,7 +36,7 @@ function getEventPlayers(){
 	</div>
 	<div id="content-wrapper">
 		<div id="content" class="no-news">
-			<h1>Player status form</h1>
+			<h1>Punt de control</h1>
 			<c:if test="${message != null}">
 				<h2 style="color:red"><c:out value="${message}" /></h2>
 			</c:if>
@@ -44,18 +44,18 @@ function getEventPlayers(){
 				<form:hidden path="locationCode" />
 				<table>
 					<tr>
-						<td>Event:</td>
+						<td>Gimcana:</td>
 						<td>
 							<form:select path="eventId" onchange="getEventPlayers()">
 								<c:if test="${events.size() > 1 }">
-									<form:option value="">- Available events -</form:option>
+									<form:option value="">- Gimcanes -</form:option>
 								</c:if>
 								<form:options items="${events}" itemLabel="fullEventName" itemValue="id"/>
 							</form:select>
 						</td>
 					</tr>
 					<tr>
-						<td>Player:</td>
+						<td>Jugador / Equip:</td>
 						<td>
 							<c:choose>
 								<c:when test="${playersList != null}">
@@ -64,14 +64,14 @@ function getEventPlayers(){
 								</c:when>
 								<c:otherwise>
 									<form:select path="playerId" >
-										<form:option value="">- Select an event -</form:option>
+										<form:option value="">- Selecciona una gimcana -</form:option>
 									</form:select>
 								</c:otherwise>
 							</c:choose>
 						</td>
 					</tr>
 					<tr>
-						<td>Password:</td>
+						<td>Paraula de pas:</td>
 						<td>
 							<form:password path="password" />
 							<form:errors path="password" cssClass="error" />
@@ -79,7 +79,7 @@ function getEventPlayers(){
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="Check" class="boton"/>
+							<input type="submit" value="Comprova" class="boton"/>
 						</td>
 					</tr>
 				</table>

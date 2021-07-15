@@ -119,9 +119,9 @@ public class PlayerController {
 	private void manageDescriptionMessage(Model model, Player player) {
 		String descriptionMessage;
 		if(player.getCheckPoints().get(0).getCheckedDate() == null) {	// Show riddle description
-			descriptionMessage = player.getCheckPoints().get(0).getLocation().getDescription();
+			descriptionMessage = "La teva pista es: <p><b>" + player.getCheckPoints().get(0).getLocation().getDescription().replaceAll("\n", "<br/>") + "</b></p>";
 		} else {	// End game message
-			descriptionMessage = "The game is over.";
+			descriptionMessage = "Enhorabona! Has acabat la gimcana! Torna al punt de control per comprobar si has guanyat.";
 		}
 		
 		model.addAttribute("descriptionMessage", descriptionMessage);
@@ -139,7 +139,7 @@ public class PlayerController {
 		if(requestedLocation == null) throw new LocationNotFoundException();
 		
 		if(requestedLocation.equals(player.getCheckPoints().get(0).getLocation())) {
-			model.addAttribute("resultMessage", "Congratulations! New character added!");
+			model.addAttribute("resultMessage", "Molt bé! Has trobat una nova lletra!");
 			player.getCheckPoints().get(0).setCheckedDate(new Date());
 			
 			if(player.getCheckPoints().size() == 5) {	// End game
@@ -149,7 +149,7 @@ public class PlayerController {
 			}
 		
 		} else {
-			model.addAttribute("resultMessage", "Wrong place! try again...");
+			model.addAttribute("resultMessage", "Estàs al lloc equivocat! Torna a llegir la pista amb tranquilitat ...");
 		}
 		
 	}

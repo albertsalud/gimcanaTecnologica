@@ -12,38 +12,38 @@
 	</div>
 	<div id="content-wrapper">
 		<div id="content" class="no-news">
-			<h1>Registration form</h1>
+			<h1>Formulari de registre</h1>
 			<c:if test="${message != null}">
 				<h2 class="error"><c:out value="${message}" /></h2>
 			</c:if>
 			<p>
-				<a href="/gimcana-tecnologica">&lt; Return main page</a>
+				<a href="/gimcana-tecnologica">&lt; Tornar sense registrar-se</a>
 			</p>
 			<form:form method="post" modelAttribute="playerRegistrationDTO" action="registry">
 				<table>
 					<tr>
-						<td>Event:</td>
+						<td>Gimcana:</td>
 						<td>
 							<form:select path="event" items="${events}" itemLabel="fullEventName" itemValue="id">
 							</form:select>
 						</td>
 					</tr>
 					<tr>
-						<td>Player name:</td>
+						<td>Nom del jugador / equip:</td>
 						<td>
 							<form:input path="name" />
 							<form:errors path="name" cssClass="error" />
 						</td>
 					</tr>
 					<tr>
-						<td>Player password:</td>
+						<td>Paraula de pas:</td>
 						<td>
 							<form:password path="password" />
 							<form:errors path="password" cssClass="error" />
 						</td>
 					</tr>
 					<tr>
-						<td>Repeat password:</td>
+						<td>Repeteix-la:</td>
 						<td>
 							<form:password path="repeatedPassword" />
 							<form:errors path="repeatedPassword" cssClass="error" />
@@ -61,7 +61,7 @@
 					</spring:hasBindErrors>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="Save" class="boton"/>
+							<input type="submit" value="Registrar-me" class="boton"/>
 						</td>
 					</tr>
 				</table>

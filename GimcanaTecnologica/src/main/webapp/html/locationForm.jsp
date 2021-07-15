@@ -6,54 +6,56 @@
 <html>
 <jsp:include page="head.jsp" />
 <body>
-	<script>
-	$( function() {
-		$( "#initDate" ).datepicker({
-			dateFormat: "dd/mm/yy"
-		});
-	} );
-	</script>
 	<div id="header">
 		<c:import url="http://daudecinc.tk/menu.html" />
 	</div>
 	<div id="content-wrapper">
 		<div id="content" class="no-news">
-			<h1>Event form</h1>
+			<h1>Form to manage locations for events</h1>
 			<c:if test="${message != null}">
-				<h2 class="error"><c:out value="${message}" /></h2>
+				<h2 style="error"><c:out value="${message}" /></h2>
 			</c:if>
 			<p>
-				<a href="<c:url value="/admin/events" />">&lt; Return to events list</a>
+				<a href="<c:url value="/admin/locations" />">&lt; Return to locations list</a>
 			</p>
-			<form:form method="post" modelAttribute="eventFormDTO" action="./save">
+			<form:form method="post" modelAttribute="locationFormDTO" action="./save">
 				<form:hidden path="id"/>
 				<table>
 					<tr>
-						<td>Event name:</td>
+						<td>Location name:</td>
 						<td>
 							<form:input path="name" />
 							<form:errors path="name" cssClass="error" />
 						</td>
 					</tr>
 					<tr>
-						<td>Event date (dd/MM/yyyy):</td>
+						<td>Location code:</td>
 						<td>
-							<form:input path="initDate" />
-							<form:errors path="initDate" cssClass="error"/>
+							<form:input path="code" />
+							<form:errors path="code" cssClass="error"/>
 						</td>
 					</tr>
 					<tr>
-						<td>Allow players registration:</td>
+						<td>Description:</td>
 						<td>
-							<form:checkbox path="allowPlayersRegistration" />
-							<form:errors path="allowPlayersRegistration" cssClass="error" />
+							<form:textarea path="description" />
+							<form:errors path="description" cssClass="error" />
 						</td>
 					</tr>
 					<tr>
-						<td>Enable start game:</td>
+						<td>Zone:</td>
 						<td>
-							<form:checkbox path="eventStarted" />
-							<form:errors path="eventStarted" cssClass="error" />
+							<form:select path="zone">
+								<form:option value="1">1</form:option>
+								<form:option value="2">2</form:option>
+								<form:option value="3">3</form:option>
+							</form:select>
+						</td>
+					</tr>
+					<tr>
+						<td>Available:</td>
+						<td>
+							<form:checkbox path="available"/>
 						</td>
 					</tr>
 					<tr>

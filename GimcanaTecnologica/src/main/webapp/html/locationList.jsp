@@ -10,35 +10,36 @@
 	</div>
 	<div id="content-wrapper">
 		<div id="content" class="no-news">
-			<h1>Events list</h1>
+			<h1>Locations list</h1>
 			<p>
 				<a href="<c:url value="/admin" />">&lt; Return home</a>
 			</p>
 			<p>
-				<a href="<c:url value="/admin/events/new" />">&gt; Add new event</a>
+				<a href="<c:url value="/admin/locations/new" />">&gt; Add new location</a>
 			</p>
 			<table id="data-table" cellpadding="5" cellspacing="0">
 				<tr>
-					<th>Event name</th>
-					<th>Event date</th>
-					<th>Registry available</th>
-					<th>Event started</th>
+					<th>Location name</th>
+					<th>Location zone</th>
 					<th></th>
 				</tr>
-				<c:forEach items="${listEvents}" var="currentEvent">
+				<c:forEach items="${locations}" var="currentLocation">
 					<tr>
-						<td>${currentEvent.name}</td>
-						<td>${currentEvent.initDate}</td>
-						<td>${currentEvent.allowPlayersRegistration}</td>
-						<td>${currentEvent.eventStarted}</td>
+						<td>${currentLocation.name}</td>
+						<td>${currentLocation.zone}</td>
 						<td>
-							<a href="<c:url value="/admin/events/${currentEvent.id}" />">&gt; Edit</a>
-							<a href="<c:url value="/admin/events/${currentEvent.id}/players" />">&gt; Players list</a>
+							<a href="<c:url value="/admin/locations/${currentLocation.id}" />">&gt; Edit</a>
 						</td>
 					</tr>
 				</c:forEach>
 			</table>
+			<p>
+				<a href="<c:url value="/admin/locations/print" />">&gt; Generate locations PDF document</a>
+			</p>
 		</div>
+	</div>
+	<div id="tools">
+		<c:import url="http://daudecinc.tk/tools.html" />
 	</div>
 </body>
 </html>

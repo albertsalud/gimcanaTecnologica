@@ -1,0 +1,16 @@
+#############
+RELEASE NOTES
+#############
+
+Version: 1.0.1
+	- Fixed bug at production environment on printing locations document.
+	- Fixed bug on locations document by duplicated "Inicio" location.
+
+Version: 1.0.0 (Initial version)
+	- Admin environment:
+		- Events management.
+			- Players management.
+		- Locations management.
+			- Locations print process.
+	- Public environment:
+		- Players registration.

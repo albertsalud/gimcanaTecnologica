@@ -2,15 +2,15 @@ package tk.daudecinc.gimcana.tools;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +32,8 @@ import tk.daudecinc.gimcana.model.entities.Location;
 @Component
 public class PDFLocationsGenerator {
 	
+	private Log log = LogFactory.getLog(PDFLocationsGenerator.class);
+	
 	@Autowired
 	private QRGenerator qrGenerator;
 	
@@ -48,29 +50,24 @@ public class PDFLocationsGenerator {
 			locations.forEach(l -> {
 				try {
 					generateDocumentBody(doc, l);
-				} catch (DocumentException | URISyntaxException | IOException e) {
-					e.printStackTrace();
-				} catch (WriterException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (DocumentException | URISyntaxException | IOException | WriterException e) {
+					log.error(e);
 				}
 			});
 			
 			doc.close();
 			return new ByteArrayInputStream(out.toByteArray());
 			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (DocumentException de) {
+			log.error(de);
 		}
 		
 		return null;
 	}
 
 	private void generateDocumentBody(Document doc, Location currentLocation) throws DocumentException, URISyntaxException, IOException, WriterException {	
+		log.info("Generating location for: " + currentLocation.getName());
+		
 		generateHeader(doc);
 		generateTitle(doc, currentLocation);
 		generateQR(doc, currentLocation);
@@ -141,14 +138,14 @@ public class PDFLocationsGenerator {
 		
 	}
 
-	private void generateHeader(Document doc) throws DocumentException, URISyntaxException, MalformedURLException, IOException {
+	private void generateHeader(Document doc) throws DocumentException, URISyntaxException, IOException {
 		PdfPTable table = new PdfPTable(2);
 		
-		Path dd5Logo = Paths.get(ClassLoader.getSystemResource("dd5logo.jpg").toURI());
+		Path dd5Logo = Paths.get(this.getClass().getResource("/dd5logo.jpg").toURI());
 		Image dd5Image = Image.getInstance(dd5Logo.toAbsolutePath().toString());
 		dd5Image.scalePercent(50);
 		
-		Path sclLogo = Paths.get(ClassLoader.getSystemResource("scllogo.png").toURI());
+		Path sclLogo = Paths.get(this.getClass().getResource("/scllogo.png").toURI());
 		Image sclImage = Image.getInstance(sclLogo.toAbsolutePath().toString());
 		sclImage.scalePercent(50);
 		
@@ -164,7 +161,7 @@ public class PDFLocationsGenerator {
 		doc.add(table);
 	}
 
-	private Document generateDocument(ByteArrayOutputStream out) throws FileNotFoundException, DocumentException {
+	private Document generateDocument(ByteArrayOutputStream out) throws DocumentException {
 		Document document = new Document();
 		PdfWriter.getInstance(document, out);
 		

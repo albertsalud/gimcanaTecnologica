@@ -1,11 +1,14 @@
 package tk.daudecinc.gimcana.controller.admin;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,8 @@ import tk.daudecinc.gimcana.tools.PDFLocationsGenerator;
 @Controller
 @RequestMapping("/admin/locations")
 public class LocationController {
+	
+	Log log = LogFactory.getLog(LocationController.class);
 	
 	@Autowired
 	private LocationServices locationServices;
@@ -109,23 +114,31 @@ public class LocationController {
 	
 	@GetMapping("/print")
 	public void generateLocationsPDFDocument(HttpServletResponse response) {
-
-		List<Location> locations = locationServices.listLocations();
+		log.debug("Initializating locations document print process...");
+		
+		List<Location> locations = new ArrayList<>(locationServices.listLocations());
 		locations.add(generateStartLocation());
+		
+		log.debug("Generating pdf document...");
 		InputStream pdf = pdfGenerator.generateLocationsPDFDocument(locations);
 
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=\"locations.pdf\"");
 		
+		log.debug("Sending generated documento to client ...");
 		try {
 			byte[] buffer = new byte[10240];
 			for (int length = 0; (length = pdf.read(buffer)) > 0;) {
 				response.getOutputStream().write(buffer, 0, length);
 		    }
 			response.flushBuffer();
+		
 		} catch (Exception e) {
+			log.error(e);
 			e.printStackTrace();
 		}
+		
+		log.debug("locations document print process finished!");
 	}
 
 	private Location generateStartLocation() {

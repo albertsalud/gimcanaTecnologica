@@ -1,3 +1,4 @@
+<%@page import="tk.daudecinc.gimcana.model.entities.Location"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -12,6 +13,30 @@
 			dateFormat: "dd/mm/yy"
 		});
 	} );
+	
+	
+	function addLocation(){
+		var selectedLocation = $("#allLocations option:selected");
+		
+		if(selectedLocation != null) {
+			$("#eventLocations").append(selectedLocation);
+		}
+	}
+	
+	function removeLocation(){
+		var selectedLocation = $("#eventLocations option:selected");
+		
+		if(selectedLocation != null) {
+			$("#allLocations").append(selectedLocation);
+		}
+	}
+	
+	function setEventLocationsSelected(){
+		$("#eventLocations option").each(function(){
+			$(this).prop("selected", true);
+			
+		});
+	}
 	</script>
 	<div id="header">
 		<c:import url="http://daudecinc.tk/menu.html" />
@@ -25,9 +50,9 @@
 			<p>
 				<a href="<c:url value="/admin/events" />">&lt; Return to events list</a>
 			</p>
-			<form:form method="post" modelAttribute="eventFormDTO" action="./save">
+			<form:form method="post" modelAttribute="eventFormDTO" action="./save" onsubmit="setEventLocationsSelected()">
 				<form:hidden path="id"/>
-				<table>
+				<table cellpadding="5" cellspacing="0">
 					<tr>
 						<td>Event name:</td>
 						<td>
@@ -54,6 +79,23 @@
 						<td>
 							<form:checkbox path="eventStarted" />
 							<form:errors path="eventStarted" cssClass="error" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							Locations:
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<form:select path="eventLocations" multiple="true" items="${eventFormDTO.eventLocations}" itemLabel="name"/>
+							<button class="boton" onclick="removeLocation(); return false;">Remove location</button>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<form:select path="allLocations" items="${eventFormDTO.allLocations}" itemLabel="name" multiple="false"/>
+							<button class="boton" onclick="addLocation(); return false;">Add location</button>
 						</td>
 					</tr>
 					<tr>

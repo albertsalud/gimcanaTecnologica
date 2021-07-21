@@ -42,7 +42,7 @@
 		<c:import url="http://daudecinc.tk/menu.html" />
 	</div>
 	<div id="content-wrapper">
-		<div id="content" class="no-news">
+		<div id="content" class="admin">
 			<h1>Event form</h1>
 			<c:if test="${message != null}">
 				<h2 class="error"><c:out value="${message}" /></h2>
@@ -83,7 +83,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							Locations:
+							Locations: <form:errors path="eventLocations" cssClass="error" />
 						</td>
 					</tr>
 					<tr>

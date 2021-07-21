@@ -9,7 +9,7 @@
 		<c:import url="http://daudecinc.tk/menu.html" />
 	</div>
 	<div id="content-wrapper">
-		<div id="content" class="no-news">
+		<div id="content" class="admin">
 			<h1>Events list</h1>
 			<p>
 				<a href="<c:url value="/admin" />">&lt; Return home</a>
@@ -24,15 +24,36 @@
 					<th>Registry available</th>
 					<th>Event started</th>
 					<th></th>
+					<th></th>
+					<th></th>
 				</tr>
 				<c:forEach items="${listEvents}" var="currentEvent">
 					<tr>
 						<td>${currentEvent.name}</td>
 						<td>${currentEvent.initDate}</td>
-						<td>${currentEvent.allowPlayersRegistration}</td>
-						<td>${currentEvent.eventStarted}</td>
+						<td align="center">
+							<c:if test="${currentEvent.allowPlayersRegistration}">
+								<img src="<c:url value="/images/checked.png" />" width="24"/>
+							</c:if>
+							<c:if test="${!currentEvent.allowPlayersRegistration}">
+								<img src="<c:url value="/images/unchecked.png" />" width="24" />
+							</c:if>
+						</td>
+						<td align="center">
+							<c:if test="${currentEvent.eventStarted}">
+								<img src="<c:url value="/images/checked.png" />" width="24"/>
+							</c:if>
+							<c:if test="${!currentEvent.eventStarted}">
+								<img src="<c:url value="/images/unchecked.png" />" width="24" />
+							</c:if>
+						</td>
 						<td>
 							<a href="<c:url value="/admin/events/${currentEvent.id}" />">&gt; Edit</a>
+						</td>
+						<td>
+							<a href="<c:url value="/admin/locations/print/${currentEvent.id}" />">&gt; Print locations</a>
+						</td>
+						<td>
 							<a href="<c:url value="/admin/events/${currentEvent.id}/players" />">&gt; Players list</a>
 						</td>
 					</tr>

@@ -10,7 +10,7 @@
 		<c:import url="http://daudecinc.tk/menu.html" />
 	</div>
 	<div id="content-wrapper">
-		<div id="content" class="no-news">
+		<div id="content" class="admin">
 			<h1>Form to manage locations for events</h1>
 			<c:if test="${message != null}">
 				<h2 style="error"><c:out value="${message}" /></h2>

@@ -31,7 +31,9 @@ public class CheckPointAssigner {
 		CheckPoint currentCheckPoint = player.getCheckPoints().isEmpty() ? null : player.getCheckPoints().get(0);
 		int zone = currentCheckPoint == null ? -1 : currentCheckPoint.getLocation().getZone();
 		
-		List<Location> availableLocations = player.getEvent().getEventLocations();
+		List<Location> availableLocations = player.getEvent().getEventLocations().stream()
+				.filter(l -> {return l.isAvailable();})
+				.collect(Collectors.toList());
 		if(!sameZoneAllowed) availableLocations = removeSameZoneLocations(availableLocations, zone);
 		if(!repeatLocationAllowed) availableLocations = removeVisitedLocations(availableLocations, player.getCheckPoints());
 		

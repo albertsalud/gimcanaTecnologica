@@ -2,6 +2,10 @@
 RELEASE NOTES
 #############
 
+Version: 1.1.0
+	- Assign specific locations to event.
+	- Move locations document print process to events list.
+
 Version: 1.0.1
 	- Fixed bug at production environment on printing locations document.
 	- Fixed bug on locations document by duplicated "Inicio" location.

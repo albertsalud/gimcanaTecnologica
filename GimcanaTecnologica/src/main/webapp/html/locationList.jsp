@@ -9,7 +9,7 @@
 		<c:import url="http://daudecinc.tk/menu.html" />
 	</div>
 	<div id="content-wrapper">
-		<div id="content" class="no-news">
+		<div id="content" class="admin">
 			<h1>Locations list</h1>
 			<p>
 				<a href="<c:url value="/admin" />">&lt; Return home</a>
@@ -33,13 +33,7 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<p>
-				<a href="<c:url value="/admin/locations/print" />">&gt; Generate locations PDF document</a>
-			</p>
 		</div>
-	</div>
-	<div id="tools">
-		<c:import url="http://daudecinc.tk/tools.html" />
 	</div>
 </body>
 </html>

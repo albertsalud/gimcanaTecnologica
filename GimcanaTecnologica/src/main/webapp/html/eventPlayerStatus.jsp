@@ -9,7 +9,7 @@
 		<c:import url="http://daudecinc.tk/menu.html" />
 	</div>
 	<div id="content-wrapper">
-		<div id="content" class="no-news">
+		<div id="content" class="admin">
 			<h1>Event Player Status</h1>
 			<p>
 				<a href="<c:url value="/admin/events/${player.event.id}/players" />">&lt; Return to event player list</a>

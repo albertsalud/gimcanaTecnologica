@@ -32,7 +32,7 @@ function getEventPlayers(){
 </script>
 <body>
 	<div id="header">
-		<c:import url="http://daudecinc.tk/menu.html" />
+		<c:import url="${applicationScope.webURL}/menu.html" />
 	</div>
 	<div id="content-wrapper">
 		<div id="content" class="no-news">

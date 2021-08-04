@@ -1,12 +1,14 @@
 package tk.daudecinc.gimcana.model.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -32,6 +34,9 @@ public class Event {
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date initDate;
+	
+	@ManyToMany
+	private List<Location> eventLocations;
 	
 	private boolean allowPlayersRegistration;
 	

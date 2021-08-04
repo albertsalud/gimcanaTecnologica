@@ -9,7 +9,7 @@
 		<c:import url="${applicationScope.webURL}/menu.html" />
 	</div>
 	<div id="content-wrapper">
-		<div id="content" class="no-news">
+		<div id="content" class="admin">
 			<h1>Event Players list</h1>
 			<p>
 				<a href="<c:url value="/admin/events" />">&lt; Return to events list</a>
@@ -17,12 +17,21 @@
 			<table id="data-table" cellspacing="0" cellpadding="5">
 				<tr>
 					<th>Player name</th>
+					<th>Present</th>
 					<th></th>
 					<th></th>
 				</tr>
 				<c:forEach items="${players}" var="currentPlayer">
 					<tr>
 						<td>${currentPlayer.name}</td>
+						<td align="center">
+							<c:if test="${currentPlayer.present}">
+								<img src="<c:url value="/images/checked.png" />" width="24"/>
+							</c:if>
+							<c:if test="${!currentPlayer.present}">
+								<img src="<c:url value="/images/unchecked.png" />" width="24" />
+							</c:if>
+						</td>
 						<td>
 							<c:choose>
 								<c:when test="${currentPlayer.present}">

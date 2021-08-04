@@ -1,7 +1,6 @@
 package tk.daudecinc.gimcana.controller.admin;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import tk.daudecinc.gimcana.controller.dto.LocationFormDTO;
 import tk.daudecinc.gimcana.controller.exceptions.LocationNotFoundException;
+import tk.daudecinc.gimcana.model.entities.Event;
 import tk.daudecinc.gimcana.model.entities.Location;
+import tk.daudecinc.gimcana.model.services.EventServices;
 import tk.daudecinc.gimcana.model.services.LocationServices;
 import tk.daudecinc.gimcana.tools.PDFLocationsGenerator;
 
@@ -34,6 +35,9 @@ public class LocationController {
 	
 	@Autowired
 	private LocationServices locationServices;
+	
+	@Autowired
+	private EventServices eventServices;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -112,18 +116,25 @@ public class LocationController {
 		return goToLocationForm(model, dto);
 	}
 	
-	@GetMapping("/print")
-	public void generateLocationsPDFDocument(HttpServletResponse response) {
+	@GetMapping("/print/{eventId}")
+	public void generateLocationsPDFDocument(@PathVariable Long eventId,
+			HttpServletResponse response) {
+		
 		log.debug("Initializating locations document print process...");
 		
-		List<Location> locations = new ArrayList<>(locationServices.listLocations());
-		locations.add(generateStartLocation());
+		Event selectedEvent = eventServices.getEvent(eventId);
 		
 		log.debug("Generating pdf document...");
-		InputStream pdf = pdfGenerator.generateLocationsPDFDocument(locations);
+		InputStream pdf = pdfGenerator.generateLocationsPDFDocument(manageEventLocations(selectedEvent));
 
+		sendDocumentToClient(selectedEvent, response, pdf);
+		
+		log.debug("locations document print process finished!");
+	}
+
+	private void sendDocumentToClient(Event selectedEvent, HttpServletResponse response, InputStream pdf) {
 		response.setContentType("application/pdf");
-		response.setHeader("Content-Disposition", "attachment; filename=\"locations.pdf\"");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + manageLocationsDocumentFileName(selectedEvent) + ".pdf\"");
 		
 		log.debug("Sending generated documento to client ...");
 		try {
@@ -138,7 +149,17 @@ public class LocationController {
 			e.printStackTrace();
 		}
 		
-		log.debug("locations document print process finished!");
+	}
+
+	private String manageLocationsDocumentFileName(Event selectedEvent) {
+		return selectedEvent.getName().replace(" ", "_");
+	}
+
+	private List<Location> manageEventLocations(Event selectedEvent) {
+		List<Location> locations = selectedEvent.getEventLocations();
+		locations.add(generateStartLocation());
+		
+		return locations;
 	}
 
 	private Location generateStartLocation() {

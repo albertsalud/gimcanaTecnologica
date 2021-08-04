@@ -5,43 +5,40 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import tk.daudecinc.gimcana.model.entities.CheckPoint;
 import tk.daudecinc.gimcana.model.entities.Location;
 import tk.daudecinc.gimcana.model.entities.Player;
-import tk.daudecinc.gimcana.model.services.LocationServices;
 
 @Component
 public class CheckPointAssigner {
-	
-	@Autowired
-	private LocationServices locationServices;
 	
 	private Random random = new Random();
 	
 	public CheckPoint assignCheckPoint(Player player) {
 		CheckPoint checkPoint = new CheckPoint();
 		
-		checkPoint.setLocation(selectLocation(player.getCheckPoints(), false, false));
+		checkPoint.setLocation(selectLocation(player, false, false));
 		
 		return checkPoint;
 		
 	}
 
-	private Location selectLocation(List<CheckPoint> checkPoints,
+	private Location selectLocation(Player player,
 			boolean sameZoneAllowed,
 			boolean repeatLocationAllowed) {
-		CheckPoint currentCheckPoint = checkPoints.isEmpty() ? null : checkPoints.get(0);
+		CheckPoint currentCheckPoint = player.getCheckPoints().isEmpty() ? null : player.getCheckPoints().get(0);
 		int zone = currentCheckPoint == null ? -1 : currentCheckPoint.getLocation().getZone();
 		
-		List<Location> availableLocations = locationServices.listLocations();
+		List<Location> availableLocations = player.getEvent().getEventLocations().stream()
+				.filter(l -> {return l.isAvailable();})
+				.collect(Collectors.toList());
 		if(!sameZoneAllowed) availableLocations = removeSameZoneLocations(availableLocations, zone);
-		if(!repeatLocationAllowed) availableLocations = removeVisitedLocations(availableLocations, checkPoints);
+		if(!repeatLocationAllowed) availableLocations = removeVisitedLocations(availableLocations, player.getCheckPoints());
 		
-		if(availableLocations.size() == 0) {
-			return selectLocation(checkPoints,  true, sameZoneAllowed ? true : repeatLocationAllowed);
+		if(availableLocations.isEmpty()) {
+			return selectLocation(player,  true, sameZoneAllowed ? true : repeatLocationAllowed);
 		}
 		
 		return availableLocations.get(random.nextInt(availableLocations.size()));

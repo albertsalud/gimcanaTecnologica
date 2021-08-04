@@ -9,7 +9,7 @@
 		<c:import url="${applicationScope.webURL}/menu.html" />
 	</div>
 	<div id="content-wrapper">
-		<div id="content" class="no-news">
+		<div id="content" class="admin">
 			<h1>Welcome to admins private area</h1>
 			<p>
 				From this site you can manage:

@@ -1,5 +1,6 @@
 package tk.daudecinc.gimcana.controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,13 +19,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tk.daudecinc.gimcana.controller.dto.EventFormDTO;
 import tk.daudecinc.gimcana.model.entities.Event;
+import tk.daudecinc.gimcana.model.entities.Location;
 import tk.daudecinc.gimcana.model.entities.Player;
 import tk.daudecinc.gimcana.model.services.EventServices;
+import tk.daudecinc.gimcana.model.services.LocationServices;
 import tk.daudecinc.gimcana.model.services.PlayerServices;
 
 @Controller
 @RequestMapping("/admin/events")
 public class EventController {
+	
+	@Autowired
+	private LocationServices locationServices;
 	
 	@Autowired
 	private EventServices eventServices;
@@ -41,10 +47,31 @@ public class EventController {
 	}
 	
 	private String goToEventForm(Model model, EventFormDTO event) {
+		event.setAllLocations(manageAvailableLocations(event, locationServices.listLocations()));
 		model.addAttribute("eventFormDTO", event);
+		
 		return "eventForm";
 	}
 	
+	private List<Location> manageAvailableLocations(EventFormDTO event, List<Location> allLocations) {
+		List<Location> eventLocations = event.getEventLocations();
+		
+		if(eventLocations != null && !eventLocations.isEmpty()) {
+			List<Location> newAllLocationsList = new ArrayList<>(allLocations);
+			eventLocations.forEach(l -> {
+				if(allLocations.contains(l)) newAllLocationsList.remove(l);
+			});
+			
+			return newAllLocationsList;
+			
+		} else {
+			event.setEventLocations(new ArrayList<>(allLocations));
+			return new ArrayList<>();
+		}
+		
+		
+	}
+
 	@PostMapping("/save")
 	public String saveEvent(
 			@Valid @ModelAttribute EventFormDTO eventFormDTO,
@@ -77,6 +104,7 @@ public class EventController {
 		event.setEventStarted(eventFormDTO.isEventStarted());
 		event.setInitDate(eventFormDTO.getInitDate());
 		event.setName(eventFormDTO.getName());
+		event.setEventLocations(eventFormDTO.getEventLocations());
 		return event;
 	}
 

@@ -35,8 +35,5 @@
 			</table>
 		</div>
 	</div>
-	<div id="tools">
-		<c:import url="${applicationScope.webURL}/tools.html" />
-	</div>
 </body>
 </html>

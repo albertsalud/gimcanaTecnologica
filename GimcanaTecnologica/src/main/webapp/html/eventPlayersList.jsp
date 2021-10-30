@@ -17,6 +17,7 @@
 			<table id="data-table" cellspacing="0" cellpadding="5">
 				<tr>
 					<th>Player name</th>
+					<th>E-mail</th>
 					<th>Present</th>
 					<th></th>
 					<th></th>
@@ -24,6 +25,7 @@
 				<c:forEach items="${players}" var="currentPlayer">
 					<tr>
 						<td>${currentPlayer.name}</td>
+						<td>${currentPlayer.email}</td>
 						<td align="center">
 							<c:if test="${currentPlayer.present}">
 								<img src="<c:url value="/images/checked.png" />" width="24"/>

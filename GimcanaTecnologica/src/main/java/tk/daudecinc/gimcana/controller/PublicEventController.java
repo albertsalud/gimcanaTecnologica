@@ -66,6 +66,7 @@ public class PublicEventController {
 		return Player.builder()
 				.event(dto.getEvent())
 				.name(dto.getName())
+				.email(dto.getEmail())
 				.password(dto.getPassword())
 				.build();
 	}

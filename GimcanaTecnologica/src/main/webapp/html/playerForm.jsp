@@ -36,6 +36,13 @@
 						</td>
 					</tr>
 					<tr>
+						<td>E-mail de contacte:</td>
+						<td>
+							<form:input path="email" />
+							<form:errors path="email" cssClass="error" />
+						</td>
+					</tr>
+					<tr>
 						<td>Paraula de pas:</td>
 						<td>
 							<form:password path="password" />

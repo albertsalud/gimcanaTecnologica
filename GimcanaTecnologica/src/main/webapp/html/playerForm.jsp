@@ -24,7 +24,7 @@
 					<tr>
 						<td>Gimcana:</td>
 						<td>
-							<form:select path="event" items="${events}" itemLabel="fullEventName" itemValue="id">
+							<form:select path="event" items="${playerRegistrationDTO.events}" itemLabel="fullEventName" itemValue="id">
 							</form:select>
 						</td>
 					</tr>

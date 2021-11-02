@@ -28,7 +28,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "event_id"})})
+@Table(uniqueConstraints = 
+	{@UniqueConstraint(columnNames = {"name", "event_id"}),
+	 @UniqueConstraint(columnNames = {"email", "event_id"})
+	})
 @Builder
 public class Player {
 	
@@ -39,7 +42,7 @@ public class Player {
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String email;
 	
 	@Column(nullable = false)

@@ -1,5 +1,7 @@
 package tk.daudecinc.gimcana.controller.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,6 +16,8 @@ import tk.daudecinc.gimcana.model.entities.Event;
 @NoArgsConstructor
 @PasswordDoubleCheck(password = "password", repeatedPassword = "repeatedPassword")
 public class PlayerRegistrationDTO {
+	
+	private List<Event> events;
 	
 	@NotNull
 	private Event event;

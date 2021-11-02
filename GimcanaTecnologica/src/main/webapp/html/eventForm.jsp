@@ -9,8 +9,9 @@
 <body>
 	<script>
 	$( function() {
-		$( "#initDate" ).datepicker({
-			dateFormat: "dd/mm/yy"
+		$( "#initDate" ).datetimepicker({
+			dateFormat: "dd/mm/yy",
+			timeFormat:'HH:mm'
 		});
 	} );
 	
@@ -61,10 +62,17 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Event date (dd/MM/yyyy):</td>
+						<td>Event date (dd/MM/yyyy hh:mi):</td>
 						<td>
 							<form:input path="initDate" />
 							<form:errors path="initDate" cssClass="error"/>
+						</td>
+					</tr>
+					<tr>
+						<td>Meeting point:</td>
+						<td>
+							<form:input path="meetingPoint" />
+							<form:errors path="meetingPoint" cssClass="error" />
 						</td>
 					</tr>
 					<tr>

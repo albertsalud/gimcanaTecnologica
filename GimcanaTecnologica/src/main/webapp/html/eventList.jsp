@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="head.jsp" />
@@ -30,7 +31,9 @@
 				<c:forEach items="${listEvents}" var="currentEvent">
 					<tr>
 						<td>${currentEvent.name}</td>
-						<td>${currentEvent.initDate}</td>
+						<td>
+							<fmt:formatDate value="${currentEvent.initDate}" pattern="dd/MM/yyyy HH:mm"/>
+						</td>
 						<td align="center">
 							<c:if test="${currentEvent.allowPlayersRegistration}">
 								<img src="<c:url value="/images/checked.png" />" width="24"/>

@@ -23,7 +23,10 @@ public class EventFormDTO {
 	@NotNull
 	private String name;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@NotBlank(message = "Meeting point is mandatory")
+	private String meetingPoint;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@NotNull(message = "Event date is mandatory")
 	private Date initDate;
 	

@@ -3,6 +3,7 @@ package tk.daudecinc.gimcana.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +34,7 @@ public class PublicEventController {
 	}
 	
 	private String goToPlayerRegistrationForm(Model model, PlayerRegistrationDTO dto) {
-		model.addAttribute("events", eventServices.listEventsAllowedForRegistration());
+		dto.setEvents(eventServices.listEventsAllowedForRegistration());
 		model.addAttribute("playerRegistrationDTO", dto);
 		
 		return "playerForm";
@@ -54,8 +55,12 @@ public class PublicEventController {
 			Player player = buildPlayer(dto);
 			playerServices.savePlayer(player);
 		
+		} catch (DataIntegrityViolationException e) {
+			model.addAttribute("message", "El nom de l'equip o l'e-mail ja s'han donat d'alta per a aquest esdeveniment.");
+			return goToPlayerRegistrationForm(model, dto);
+		
 		} catch (Exception e) {
-			model.addAttribute("message", e.getMessage());
+			model.addAttribute("message", e.getClass() + " " + e.getMessage());
 			return goToPlayerRegistrationForm(model, dto);
 		}
 		
@@ -65,8 +70,8 @@ public class PublicEventController {
 	private Player buildPlayer(@Valid PlayerRegistrationDTO dto) {
 		return Player.builder()
 				.event(dto.getEvent())
-				.name(dto.getName())
-				.email(dto.getEmail())
+				.name(dto.getName().trim())
+				.email(dto.getEmail().trim())
 				.password(dto.getPassword())
 				.build();
 	}

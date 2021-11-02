@@ -101,6 +101,7 @@ public class EventController {
 
 	private Event setEvent(Event event, @Valid EventFormDTO eventFormDTO) {
 		event.setAllowPlayersRegistration(eventFormDTO.isAllowPlayersRegistration());
+		event.setMeetingPoint(eventFormDTO.getMeetingPoint());
 		event.setEventStarted(eventFormDTO.isEventStarted());
 		event.setInitDate(eventFormDTO.getInitDate());
 		event.setName(eventFormDTO.getName());

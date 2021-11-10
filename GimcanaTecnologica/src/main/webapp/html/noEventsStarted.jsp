@@ -17,7 +17,7 @@
 			</p>
 		</div>
 		<div id="tools">
-			<c:import url="http://daudecinc.tk/tools.html" />
+			<c:import url="${applicationScope.webURL}/tools.html" />
 		</div>
 	</div>
 </body>

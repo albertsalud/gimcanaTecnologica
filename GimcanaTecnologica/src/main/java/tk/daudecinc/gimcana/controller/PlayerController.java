@@ -121,7 +121,7 @@ public class PlayerController {
 		if(player.getCheckPoints().get(0).getCheckedDate() == null) {	// Show riddle description
 			descriptionMessage = "La teva pista es: <p><b>" + player.getCheckPoints().get(0).getLocation().getDescription().replaceAll("\n", "<br/>") + "</b></p>";
 		} else {	// End game message
-			descriptionMessage = "Enhorabona! Has acabat la gimcana! Torna al punt de control per comprobar si has guanyat.";
+			descriptionMessage = "Enhorabona! Has acabat la gimcana! Torna al punt de control per comprovar si has guanyat.";
 		}
 		
 		model.addAttribute("descriptionMessage", descriptionMessage);

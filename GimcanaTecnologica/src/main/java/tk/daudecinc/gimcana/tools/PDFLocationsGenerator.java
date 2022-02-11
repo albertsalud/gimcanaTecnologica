@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.google.zxing.WriterException;
@@ -36,6 +37,9 @@ public class PDFLocationsGenerator {
 	
 	@Autowired
 	private QRGenerator qrGenerator;
+	
+	@Value("${dd5.web.url}")
+	private String webUrl;
 	
 	private Font normalFont = new Font(FontFamily.HELVETICA, 12);
 	private Font titleFont = new Font(FontFamily.HELVETICA, 16, Font.BOLD);
@@ -107,7 +111,7 @@ public class PDFLocationsGenerator {
 		text.setBorder(Rectangle.NO_BORDER);
 		table.addCell(text);
 		
-		String url = "http://daudecinc.tk/gimcana-tecnologica/players/checkPoint" + (currentLocation.getCode() == null ? "" : "?locationCode=" + currentLocation.getCode());
+		String url = webUrl + "/gimcana-tecnologica/players/checkPoint" + (currentLocation.getCode() == null ? "" : "?locationCode=" + currentLocation.getCode());
 		Image qrCode = Image.getInstance(qrGenerator.generateQR(url));
 		text = new PdfPCell(qrCode);
 		text.setHorizontalAlignment(Element.ALIGN_CENTER);

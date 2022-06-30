@@ -10,10 +10,10 @@
 	</div>
 	<div id="content-wrapper">
 		<div id="content" class="no-news">
-			<h1>Sorry, there are no events started at this moment</h1>
-			<p>Perhaps you're attempting to access the event at a wrong date?</p>
+			<h1>Ho sentim, la gimcana encara no ha començat</h1>
+			<p>És possible que no sigui la data correcta?</p>
 			<p>
-				<a href="/gimcana-tecnologica">&lt; Return home</a>
+				<a href="/gimcana-tecnologica">&lt; Torna a l'inici</a>
 			</p>
 		</div>
 		<div id="tools">
